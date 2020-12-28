@@ -143,7 +143,6 @@ namespace VehiclesDiary.Logic.Test
             // arrange/given
             var request = new CarCreateRequest(" ");
 
-
             // act/when
             var result = _unitUnderTest.Add(request);
 
@@ -156,8 +155,7 @@ namespace VehiclesDiary.Logic.Test
         {
             // arrange/given
             var request = new CarCreateRequest("nazwa");
-
-            _unitUnderTest.Add(request);
+            _repo.Setup(r => r.Exists(request.Name)).Returns(true);
 
             // act/when
             var result = _unitUnderTest.Add(request);
@@ -171,9 +169,7 @@ namespace VehiclesDiary.Logic.Test
         {
             // arrange/given
             var request = new CarCreateRequest("nazwa");
-
-
-            _unitUnderTest.Add(request);
+            _repo.Setup(r => r.Exists(request.Name)).Returns(true);
 
             // act/when
             var result = _unitUnderTest.Remove(request.Name);

@@ -14,15 +14,21 @@ namespace VehiclesDiary.Controllers
     [ApiController]
     public class VehiclesController : ControllerBase
     {
+        private readonly IVehiclesService _service;
+        private readonly IRepository<string, Car> _repo;
+
         public VehiclesController(IVehiclesService service, IRepository<string, Car> repo)
         {
-
+            _service = service;
+            _repo = repo;
         }
 
         [HttpGet]
         public IEnumerable<VehiclePreview> Get()
         {
-            throw new NotImplementedException();
+            return (_repo.GetAll() ?? Enumerable.Empty<Car>())
+                .Select(car => new VehiclePreview(car))
+                .ToArray();
         }
 
         [HttpPost]

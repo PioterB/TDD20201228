@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using VehicleDiary.Logic;
+using VehiclesDiary.Tools.Persistence;
 
 namespace VehiclesDiary.Controllers
 {
@@ -13,7 +14,7 @@ namespace VehiclesDiary.Controllers
     [ApiController]
     public class VehiclesController : ControllerBase
     {
-        public VehiclesController()
+        public VehiclesController(IVehiclesService service, IRepository<string, Car> repo)
         {
 
         }

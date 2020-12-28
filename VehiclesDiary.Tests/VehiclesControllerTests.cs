@@ -1,9 +1,20 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml;
+using Moq;
 using NUnit.Framework;
+using VehicleDiary.Logic;
+using VehiclesDiary.Controllers;
+using VehiclesDiary.Tools.Persistence;
 
 namespace VehiclesDiary.Tests
 {
     public class VehiclesControllerTests
     {
+        private VehiclesController _unitUnderTest;
+        private Mock<IVehiclesService> _serviceMock;
+        private Mock<IRepository<string, Car>> _repoMock;
+
         [OneTimeSetUp]
         public void SingleSetup()
         {
@@ -12,22 +23,35 @@ namespace VehiclesDiary.Tests
         [SetUp]
         public void Setup()
         {
+            _serviceMock = new Mock<IVehiclesService>();
+            _repoMock = new Mock<IRepository<string, Car>>();
+            _unitUnderTest = new VehiclesController(_serviceMock.Object, _repoMock.Object);
         }
 
         [Test]
-        public void Test1()
+        public void Get_Nothing_EmptyCollection()
         {
-            Assert.Pass();
+            _repoMock.Setup(r => r.GetAll()).Returns((IEnumerable<Car>)null);
+
+            var items= _unitUnderTest.Get();
+
+            CollectionAssert.IsEmpty(items);
         }
         
         [Test]
-        public void Test2()
+        public void Get_SomeItems_RespectiveCollection()
         {
-            Assert.Fail();
+            _repoMock.Setup(r => r.GetAll()).Returns(new Car[] {new Car("name"),});
+
+            var items = _unitUnderTest.Get();
+
+            CollectionAssert.IsNotEmpty(items);
+            CollectionAssert.AllItemsAreNotNull(items);
+            Assert.AreEqual(1, items.Count());
         }
 
         [Test]
-        public void Test3()
+        public void Remove()
         {
             Assert.Pass();
         }

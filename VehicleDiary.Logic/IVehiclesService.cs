@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using VehiclesDiary.Tools.Persistence;
 
 namespace VehicleDiary.Logic
 {
@@ -14,7 +15,12 @@ namespace VehicleDiary.Logic
 
     public class VehiclesService : IVehiclesService
     {
-        private readonly IDictionary<string, Car> _cars = new Dictionary<string, Car>();
+        private readonly IRepository<string, Car> _cars;
+
+        public VehiclesService(IRepository<string, Car> carsRepository)
+        {
+            _cars = carsRepository;
+        }
 
         public bool Add(CarCreateRequest request)
         {
@@ -23,7 +29,7 @@ namespace VehicleDiary.Logic
                 return false;
             }
 
-            if (_cars.ContainsKey(request.Name))
+            if (_cars.Exists(request.Name))
             {
                 return false;
             }
@@ -40,12 +46,13 @@ namespace VehicleDiary.Logic
                 throw new ArgumentNullException();
             }
 
-            if (_cars.ContainsKey(name) == false)
+            if (_cars.Exists(name) == false)
             {
                 return false;
             }
 
-            return _cars.Remove(name);
+            _cars.Remove(name);
+            return true;
         }
     }
 }

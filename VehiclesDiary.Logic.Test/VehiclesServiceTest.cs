@@ -1,18 +1,24 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using Moq;
 using NUnit.Framework;
 using VehicleDiary.Logic;
+using VehiclesDiary.Tools.Persistence;
 
 namespace VehiclesDiary.Logic.Test
 {
     public class VehiclesServiceTest
     {
         private VehiclesService _unitUnderTest;
+        private Mock<IRepository<string, Car>> _repo;
+
 
         [SetUp]
         public void Setup()
         {
-            _unitUnderTest = new VehiclesService();
+            _repo = new Mock<IRepository<string, Car>>();
+            _unitUnderTest = new VehiclesService(_repo.Object);
         }
 
         [Test]

@@ -1,4 +1,6 @@
+using Moq;
 using NUnit.Framework;
+using VehiclesDiary.Tools.Persistence;
 
 namespace VehicleDiary.Logic.PerformanceTests
 {
@@ -12,7 +14,9 @@ namespace VehicleDiary.Logic.PerformanceTests
         [Test]
         public void Test1()
         {
-            var unitUnderTest = new VehiclesService();
+            var repo = new Mock<IRepository<string, Car>>();
+            repo.Setup(r => r.Exists(It.IsAny<string>())).Returns(false);
+            var unitUnderTest = new VehiclesService(repo.Object);
 
             for (int i = 0; i < 10000; i++)
             {

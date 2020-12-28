@@ -32,9 +32,9 @@ namespace VehiclesDiary.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(VehicleCreationRequest input)
+        public StatusCodeResult Add(VehicleCreationRequest input)
         {
-            throw new NotImplementedException();
+            return _service.Add(input.ToDomain()) ? (StatusCodeResult)Ok() : BadRequest();
         }
 
         [HttpDelete]

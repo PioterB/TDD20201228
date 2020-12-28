@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using VehicleDiary.Logic;
 
 namespace VehiclesDiary.Controllers
 {
@@ -18,5 +19,10 @@ namespace VehiclesDiary.Controllers
 		[Required]
 		[StringLength(25, MinimumLength = 3)]
 		public string Name { get; set; }
-	}
+
+        public CarCreateRequest ToDomain()
+        {
+			return new CarCreateRequest(Name);
+        }
+    }
 }

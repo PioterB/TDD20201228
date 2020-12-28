@@ -7,20 +7,22 @@ namespace VehiclesDiary.Logic.Test
 {
     public class VehiclesServiceTest
     {
+        private VehiclesService _unitUnderTest;
+
         [SetUp]
         public void Setup()
         {
+            _unitUnderTest = new VehiclesService();
         }
 
         [Test]
         public void Add_SomeName_Passes()
         {
             // arrange/given
-            var unitUnderTest = new VehiclesService();
-            var nazwa = "nazwa";
+            var request = new CarCreateRequest("z");
 
             // act/when
-            var result = unitUnderTest.Add(nazwa);
+            var result = _unitUnderTest.Add(request);
 
             // assert/than
             Assert.IsTrue(result);
@@ -30,11 +32,10 @@ namespace VehiclesDiary.Logic.Test
         public void Add_NoMake_Passes()
         {
             // arrange/given
-            var unitUnderTest = new VehiclesService();
-            var nazwa = "nazwa";
+            var request = new CarCreateRequest("z");
 
             // act/when
-            var result = unitUnderTest.Add(nazwa);
+            var result = _unitUnderTest.Add(request);
 
             // assert/than
             Assert.IsTrue(result);
@@ -44,11 +45,10 @@ namespace VehiclesDiary.Logic.Test
         public void Add_NoModel_Passes()
         {
             // arrange/given
-            var unitUnderTest = new VehiclesService();
-            var nazwa = "nazwa";
+            var request = new CarCreateRequest("z");
 
             // act/when
-            var result = unitUnderTest.Add(nazwa);
+            var result = _unitUnderTest.Add(request);
 
             // assert/than
             Assert.IsTrue(result);
@@ -58,11 +58,10 @@ namespace VehiclesDiary.Logic.Test
         public void Add_NoProductionYear_Passes()
         {
             // arrange/given
-            var unitUnderTest = new VehiclesService();
-            var nazwa = "nazwa";
+            var request = new CarCreateRequest("z");
 
             // act/when
-            var result = unitUnderTest.Add(nazwa);
+            var result = _unitUnderTest.Add(request);
 
             // assert/than
             Assert.IsTrue(result);
@@ -72,11 +71,10 @@ namespace VehiclesDiary.Logic.Test
         public void Add_Make_Passes()
         {
             // arrange/given
-            var unitUnderTest = new VehiclesService();
-            var nazwa = "nazwa";
+            var request = new CarCreateRequest("z");
 
             // act/when
-            var result = unitUnderTest.Add(nazwa);
+            var result = _unitUnderTest.Add(request);
 
             // assert/than
             Assert.IsTrue(result);
@@ -86,11 +84,10 @@ namespace VehiclesDiary.Logic.Test
         public void Add_Model_Passes()
         {
             // arrange/given
-            var unitUnderTest = new VehiclesService();
-            var nazwa = "nazwa";
+            var request = new CarCreateRequest("z");
 
             // act/when
-            var result = unitUnderTest.Add(nazwa);
+            var result = _unitUnderTest.Add(request);
 
             // assert/than
             Assert.IsTrue(result);
@@ -100,11 +97,10 @@ namespace VehiclesDiary.Logic.Test
         public void Add_ProductionYear_Passes()
         {
             // arrange/given
-            var unitUnderTest = new VehiclesService();
-            var nazwa = "nazwa";
+            var request = new CarCreateRequest("naz");
 
             // act/when
-            var result = unitUnderTest.Add(nazwa);
+            var result = _unitUnderTest.Add(request);
 
             // assert/than
             Assert.IsTrue(result);
@@ -114,10 +110,9 @@ namespace VehiclesDiary.Logic.Test
         public void Add_NoName_Fail()
         {
             // arrange/given
-            var unitUnderTest = new VehiclesService();
 
             // act/when
-            var result = unitUnderTest.Add(null);
+            var result = _unitUnderTest.Add(new CarCreateRequest(null));
 
             // assert/than
             Assert.IsFalse(result);
@@ -127,11 +122,10 @@ namespace VehiclesDiary.Logic.Test
         public void Add_EmptyName_Fail()
         {
             // arrange/given
-            var unitUnderTest = new VehiclesService();
-            var nazwa = string.Empty;
+            var request = new CarCreateRequest(string.Empty);
 
             // act/when
-            var result = unitUnderTest.Add(nazwa);
+            var result = _unitUnderTest.Add(request);
 
             // assert/than
             Assert.IsFalse(result);
@@ -141,11 +135,11 @@ namespace VehiclesDiary.Logic.Test
         public void Add_WhitespaceName_Fail()
         {
             // arrange/given
-            var unitUnderTest = new VehiclesService();
-            var nazwa = " ";
+            var request = new CarCreateRequest(" ");
+
 
             // act/when
-            var result = unitUnderTest.Add(nazwa);
+            var result = _unitUnderTest.Add(request);
 
             // assert/than
             Assert.IsFalse(result);
@@ -155,13 +149,12 @@ namespace VehiclesDiary.Logic.Test
         public void Add_DuplicatedName_Fail()
         {
             // arrange/given
-            var unitUnderTest = new VehiclesService();
-            var name = "nazwa";
+            var request = new CarCreateRequest("nazwa");
 
-            unitUnderTest.Add(name);
+            _unitUnderTest.Add(request);
 
             // act/when
-            var result = unitUnderTest.Add(name);
+            var result = _unitUnderTest.Add(request);
 
             // assert/than
             Assert.IsFalse(result);
@@ -171,13 +164,13 @@ namespace VehiclesDiary.Logic.Test
         public void Remove_ExistingName_Passes()
         {
             // arrange/given
-            var unitUnderTest = new VehiclesService();
-            var name = "nazwa";
+            var request = new CarCreateRequest("nazwa");
 
-            unitUnderTest.Add(name);
+
+            _unitUnderTest.Add(request);
 
             // act/when
-            var result = unitUnderTest.Remove(name);
+            var result = _unitUnderTest.Remove(request.Name);
 
             // assert/than
             Assert.IsTrue(result);
@@ -187,13 +180,10 @@ namespace VehiclesDiary.Logic.Test
         public void Remove_EmptyName_Fail()
         {
             // arrange/given
-            var unitUnderTest = new VehiclesService();
             var name = "nazwa";
 
-            unitUnderTest.Add(name);
-
             // act/when
-            var result = unitUnderTest.Remove(name);
+            var result = _unitUnderTest.Remove(" ");
 
             // assert/than
             Assert.IsFalse(result);
@@ -203,10 +193,9 @@ namespace VehiclesDiary.Logic.Test
         public void Remove_Nothing_Exception()
         {
             // arrange/given
-            var unitUnderTest = new VehiclesService();
 
             // act/when
-            TestDelegate action = () => unitUnderTest.Remove(null);
+            TestDelegate action = () => _unitUnderTest.Remove(null);
 
             // assert/than
             Assert.Throws<ArgumentNullException>(action);
@@ -216,11 +205,10 @@ namespace VehiclesDiary.Logic.Test
         public void Remove_UnknownName_Fail()
         {
             // arrange/given
-            var unitUnderTest = new VehiclesService();
             var name = "nazwa";
 
             // act/when
-            var result = unitUnderTest.Remove(name);
+            var result = _unitUnderTest.Remove(name);
 
             // assert/than
             Assert.IsFalse(result);

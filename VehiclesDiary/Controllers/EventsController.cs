@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VehicleDiary.Logic;
+using VehiclesDiary.Tools.Persistence;
 
 namespace VehiclesDiary.Controllers
 {
@@ -14,7 +15,7 @@ namespace VehiclesDiary.Controllers
     {
         private readonly IDiaryService _service;
 
-        public EventsController(IDiaryService service)
+        public EventsController(IDiaryService service, IRepository<string, Car> repoMockObject)
         {
             _service = service;
         }
@@ -28,7 +29,7 @@ namespace VehiclesDiary.Controllers
         }
 
         [HttpPost]
-        public ActionResult<DiaryEvent> Create(EventCreation details)
+        public ObjectResult Create(EventCreation details)
         {
             throw new NotImplementedException();
         }

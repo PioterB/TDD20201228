@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using VehicleDiary.TestData;
 using VehiclesDiary.Tools.Persistence;
 
 namespace VehicleDiary.Logic.PerformanceTests
@@ -20,7 +21,7 @@ namespace VehicleDiary.Logic.PerformanceTests
 
             for (int i = 0; i < 10000; i++)
             {
-                unitUnderTest.Add(new CarCreateRequest("n"));
+                unitUnderTest.Add(VehiclesTestData.CreateCarRequest());
             }
 
 

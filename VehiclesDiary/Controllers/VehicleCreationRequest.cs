@@ -22,7 +22,7 @@ namespace VehiclesDiary.Controllers
 
         public CarCreateRequest ToDomain()
         {
-			return new CarCreateRequest(Name);
+			return new CarCreateRequest(Name, Make, Model);
         }
     }
 }

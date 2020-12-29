@@ -2,9 +2,11 @@
 {
     public class CarCreateRequest
     {
-        public CarCreateRequest(string name)
+        public CarCreateRequest(string name, string make, string model)
         {
             Name = name;
+            Make = make;
+            Model = model;
         }
 
         public string Name { get; }

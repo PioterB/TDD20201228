@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TestDataGenerators\TestDataGenerators.csproj" />
+    <ProjectReference Include="..\VehicleDiary.Logic\VehicleDiary.Logic.csproj" />
+    <ProjectReference Include="..\VehiclesDiary\VehiclesDiary.csproj" />
+  </ItemGroup>
+
+</Project>

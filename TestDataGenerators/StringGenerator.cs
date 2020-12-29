@@ -5,7 +5,7 @@ namespace TestDataGenerators
 {
 	public class StringGenerator
 	{
-		private static readonly Random Rand = new Random((int)DateTime.Now.Ticks);
+		private static readonly Random Rand = new Random();
 		private const int LettersAsciiOffset = 65;
 
 		public static string Create(uint length = 1)
